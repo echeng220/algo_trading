@@ -1,0 +1,5 @@
+yfinance==0.1.63
+pyalgotrade==0.20
+pandas==1.2.3
+pandas-market-calendars==3.4
+ib-insync==0.9.70
