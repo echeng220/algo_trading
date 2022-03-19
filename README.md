@@ -3,6 +3,14 @@ This repo is a collection of algorithmic trading strategies, along with function
 
 This repo will focus on mean reversion algorithms.
 
+# Modules
+## import_data.py
+Uses yfinance to retrieve historical stock information.
+## utils.py
+Support functions to create data feeds, run strategy backtests, log results, visualize results, etc.
+## strategies.py
+Strategy definitions and logic for various mean reversion strategies.
+
 # Algorithms
 The algorithms I am currently testing and playing with are listed below.
 ## Buy & Hold
@@ -18,11 +26,11 @@ The *pyalgotrade* documentation has this trading strategy. It uses a low Bolling
 This algorithm was taken from David Fiancan's YouTube [video](https://www.youtube.com/watch?v=_9Bmxylp63Y), which gets the algorithm from Larry Connor's book *Short Term Trading Strategies That Work*.
 
 # Interesting Reads & Resources
-The following articles are great overviews of the broad categories of algorithmic trading strategies.
 ## Alpaca List of Ultimate Trading Strategies:
-[Part 1](https://medium.com/automation-generation/ultimate-list-of-automated-trading-strategies-you-should-know-part-1-c9a333f58930)
-[Part 2](https://medium.com/p/88184b27cd60)
-[Part 3](https://medium.com/p/25d580ccab0c)
+The following articles are great overviews of the broad categories of algorithmic trading strategies.
+- [Part 1](https://medium.com/automation-generation/ultimate-list-of-automated-trading-strategies-you-should-know-part-1-c9a333f58930)
+- [Part 2](https://medium.com/p/88184b27cd60)
+- [Part 3](https://medium.com/p/25d580ccab0c)
 
 ## Basics of Mean Reversion (Dr. Ernest Chan)
 This [video](https://www.youtube.com/watch?v=5G7YdjnRvVI) is a really well-presented introduction to the concept of mean reversion.
