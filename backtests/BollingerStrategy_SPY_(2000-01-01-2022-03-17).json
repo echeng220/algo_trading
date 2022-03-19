@@ -1,0 +1,43 @@
+{
+    "strategy": "BollingerStrategy",
+    "instrument": "SPY",
+    "start_date": "2000-01-01",
+    "end_date": "2022-03-17",
+    "run_date": "2022-03-19",
+    "final_portfolio_value_$": 13013.171230005102,
+    "cumulative_returns_%": 30.13171230005034,
+    "sharpe_ratio": -0.14444861190731462,
+    "max_drawdown_%": 59.27283622221247,
+    "longest_drawdown_duration": "6348 days, 0:00:00",
+    "total_trades": 26,
+    "avg_profit_$": 126.94380795404051,
+    "profit_std_$": 864.9310653564539,
+    "max_profit_$": 938.6194142984417,
+    "min_profit_$": -2979.6887706972093,
+    "avg_return_%": 1.7402110175271108,
+    "return_std_%": 10.011445672632846,
+    "max_return_%": 10.138527976140193,
+    "min_return_%": -34.833707653076374,
+    "profitable_trades": {
+        "number_of_trades": 21,
+        "avg_profit_$": 465.287777751637,
+        "profit_std_$": 239.2574423056587,
+        "max_profit_$": 938.6194142984417,
+        "min_profit_$": 44.56463482118383,
+        "avg_return_%": 5.660411380440844,
+        "return_std_%": 2.782248384305618,
+        "max_return_%": 10.138527976140193,
+        "min_return_%": 0.6799587979138056
+    },
+    "unprofitable_trades": {
+        "number_of_trades": 5,
+        "avg_profit_$": -1294.100865195865,
+        "profit_std_$": 1072.1728918703743,
+        "max_profit_$": -83.77619871457836,
+        "min_profit_$": -2979.6887706972093,
+        "avg_return_%": -14.72463050671057,
+        "return_std_%": 12.371044480254541,
+        "max_return_%": -0.67342884548157,
+        "min_return_%": -34.833707653076374
+    }
+}

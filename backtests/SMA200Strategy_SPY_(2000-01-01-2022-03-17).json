@@ -1,0 +1,43 @@
+{
+    "strategy": "SMA200Strategy",
+    "instrument": "SPY",
+    "start_date": "2000-01-01",
+    "end_date": "2022-03-17",
+    "run_date": "2022-03-19",
+    "final_portfolio_value_$": 55420.21745341263,
+    "cumulative_returns_%": 454.2021745341284,
+    "sharpe_ratio": 0.3007153354805731,
+    "max_drawdown_%": 21.843634433673458,
+    "longest_drawdown_duration": "805 days, 0:00:00",
+    "total_trades": 11,
+    "avg_profit_$": 4129.1106775829685,
+    "profit_std_$": 6527.852251688932,
+    "max_profit_$": 17065.791524059452,
+    "min_profit_$": -4892.8626228411695,
+    "avg_return_%": 20.720224145855656,
+    "return_std_%": 28.45074335566851,
+    "max_return_%": 73.5894940474817,
+    "min_return_%": -11.72527022177461,
+    "profitable_trades": {
+        "number_of_trades": 7,
+        "avg_profit_$": 7474.573838522878,
+        "profit_std_$": 5852.569266985143,
+        "max_profit_$": 17065.791524059452,
+        "min_profit_$": 536.3181301109944,
+        "avg_return_%": 35.6729478515973,
+        "return_std_%": 25.46416981329365,
+        "max_return_%": 73.5894940474817,
+        "min_return_%": 1.4763477152834639
+    },
+    "unprofitable_trades": {
+        "number_of_trades": 4,
+        "avg_profit_$": -1725.449854061876,
+        "profit_std_$": 1838.8212013034986,
+        "max_profit_$": -508.66672359436444,
+        "min_profit_$": -4892.8626228411695,
+        "avg_return_%": -5.447042339192238,
+        "return_std_%": 3.903017988996001,
+        "max_return_%": -1.3968606265589834,
+        "min_return_%": -11.72527022177461
+    }
+}

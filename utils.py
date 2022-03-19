@@ -1,5 +1,6 @@
+import os
+import json
 from datetime import datetime
-from tracemalloc import start
 import pandas as pd
 import pandas_market_calendars as market_calendar
 
@@ -22,95 +23,119 @@ def create_feed(ticker, start_date, end_date):
         return feed
 
 def log_backtest(strategy, return_analyzer, sharpe_analyzer, drawdown_analyzer, trade_analyzer, start_date, end_date):
-    '''Write results of backtest to .txt file.'''
+    '''Write results of backtest to .json file.'''
 
     # Backtest metadata
     strategy_name = type(strategy).__name__
-    instrument = strategy._instrument.upper()
+    instrument = strategy.instrument.upper()
     test_date = datetime.today().strftime('%Y-%m-%d')
 
-    summary_logs = [
-        "******* BACKTEST RUN DATA *******",
-        f"Strategy: {strategy_name}\nInstrument: {instrument}",
-        f"Start Date: {start_date}\nEnd Date: {end_date}\n",
-        f"Backtest ran on {test_date}\n",
-        "---SUMMARY---",
-        f"Final portfolio value: ${round(strategy.getResult(), 2)}",
-        f"Cumulative returns: ${round(return_analyzer.getCumulativeReturns()[-1] * 100)} %",
-        f"Sharpe ratio: {round(sharpe_analyzer.getSharpeRatio(0.05))}",
-        f"Max. drawdown: {round(drawdown_analyzer.getMaxDrawDown() * 100, 2)} %",
-        f"Longest drawdown duration: {drawdown_analyzer.getLongestDrawDownDuration()}\n"
-    ]
-
-    trade_logs = [
-        "---TRADE ANALYSIS---",
-        f"Total trades: {trade_analyzer.getCount()}",
-    ]
+    log_dict = {
+            'strategy': str(strategy_name),
+            'instrument': instrument,
+            'start_date': start_date,
+            'end_date': end_date,
+            'run_date': test_date,
+            'final_portfolio_value_$': strategy.getResult(),
+            'cumulative_returns_%': return_analyzer.getCumulativeReturns()[-1] * 100,
+            'sharpe_ratio': sharpe_analyzer.getSharpeRatio(0.05),
+            'max_drawdown_%': drawdown_analyzer.getMaxDrawDown() * 100,
+            'longest_drawdown_duration': str(drawdown_analyzer.getLongestDrawDownDuration()),
+            'total_trades': trade_analyzer.getCount()
+    }
 
     if trade_analyzer.getCount() > 0:
         profits = trade_analyzer.getAll()
-        profit_logs = [
-            "-PROFIT-",
-            f"Avg. profit: ${round(profits.mean(), 2)}",
-            f"Profits std. dev.: ${round(profits.std(), 2)}",
-            f"Max. profit: ${round(profits.max(), 2)}",
-            f"Min. profit: ${round(profits.min(), 2)}\n"
-        ]
-        trade_logs += profit_logs
+        log_dict.update(
+            {
+                'avg_profit_$': profits.mean(),
+                'profit_std_$': profits.std(),
+                'max_profit_$': profits.max(),
+                'min_profit_$': profits.min()
+            }
+        )
         
         returns = trade_analyzer.getAllReturns()
-        returns_logs = [
-            "-RETURNS-",
-            f"Avg. return: {round(returns.mean() * 100, 2)} %",
-            f"Returns std. dev.: {round(returns.std() * 100, 2)} %",
-            f"Max. return: {round(returns.max() * 100, 2)} %",
-            f"Min. return: {round(returns.min() * 100, 2)} %\n"
-        ]
-        trade_logs += returns_logs
-
+        log_dict.update(
+            {
+                'avg_return_%': returns.mean() * 100,
+                'return_std_%': returns.std() * 100,
+                'max_return_%': returns.max() * 100,
+                'min_return_%': returns.min() * 100
+            }
+        )
 
     if trade_analyzer.getProfitableCount() > 0:
         profits = trade_analyzer.getProfits()
         returns = trade_analyzer.getPositiveReturns()
 
-        profitable_logs = [
-            "---PROFITABLE TRADES---",
-            f"Profitable trades: {trade_analyzer.getProfitableCount()}",
-            f"Avg. profit: ${round(profits.mean(), 2)}",
-            f"Profits std. dev.: ${round(profits.std(), 2)}",
-            f"Max. profit: ${round(profits.max(), 2)}",
-            f"Min. profit: ${round(profits.min(), 2)}",
-            "---",
-            f"Avg. return: {round(returns.mean() * 100, 2)} %",
-            f"Returns std. dev.: {round(returns.std() * 100, 2)} %",
-            f"Max. return: {round(returns.max() * 100, 2)} %",
-            f"Min. return: {round(returns.min() * 100, 2)} %\n"
-        ]
+        log_dict.update(
+            {
+                'profitable_trades': {
+                    'number_of_trades': trade_analyzer.getProfitableCount(),
+                    'avg_profit_$': profits.mean(),
+                    'profit_std_$': profits.std(),
+                    'max_profit_$': profits.max(),
+                    'min_profit_$': profits.min(),
+                    'avg_return_%': returns.mean() * 100,
+                    'return_std_%': returns.std() * 100,
+                    'max_return_%': returns.max() * 100,
+                    'min_return_%': returns.min() * 100
+                }
+            }
+        )
 
     if trade_analyzer.getUnprofitableCount() > 0:
         losses = trade_analyzer.getLosses()
         returns = trade_analyzer.getNegativeReturns()
 
-        unprofitable_logs = [
-            "---UNPROFITABLE TRADES---",
-            f"Unprofitable trades: {trade_analyzer.getUnprofitableCount()}",
-            f"Avg. loss: ${round(losses.mean(), 2)}",
-            f"Losses std. dev.: ${round(losses.std(), 2)}",
-            f"Max. loss: ${round(losses.min(), 2)}",
-            f"Min. loss: ${round(losses.max(), 2)}",
-            "---",
-            f"Avg. return: {round(returns.mean() * 100, 2)} %",
-            f"Returns std. dev.: {round(returns.std() * 100, 2)} %",
-            f"Max. return: {round(returns.max() * 100, 2)} %",
-            f"Min. return: {round(returns.min() * 100, 2)} %\n"
-        ]
+        log_dict.update(
+            {
+                'unprofitable_trades': {
+                    'number_of_trades': trade_analyzer.getUnprofitableCount(),
+                    'avg_profit_$': losses.mean(),
+                    'profit_std_$': losses.std(),
+                    'max_profit_$': losses.max(),
+                    'min_profit_$': losses.min(),
+                    'avg_return_%': returns.mean() * 100,
+                    'return_std_%': returns.std() * 100,
+                    'max_return_%': returns.max() * 100,
+                    'min_return_%': returns.min() * 100
+                }
+            }
+        )
 
-    logs = summary_logs + trade_logs + profit_logs + profitable_logs + unprofitable_logs
+    with open(f'backtests\\{strategy_name}_{instrument}_({start_date}-{end_date}).json', 'w') as f:
+        json.dump(log_dict, f, indent=4)
 
-    with open(f'backtests\\{strategy_name}_{instrument}_({start_date}-{end_date}).txt', 'w') as f:
-        for line in logs:
-            f.write(line)
-            f.write('\n')
+def flatten_dict(d, parent_key='', sep='.'):
+    '''Recursively flatten nested dictionary.'''
+    items = []
+    for k, v in d.items():
+        new_key = parent_key + sep + k if parent_key else k
+        try:
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        except:
+            items.append((new_key, v))
+    return dict(items)
+
+def compare_backtests(list_of_logs, sheet_name):
+    '''Combine logs into dataframe.'''
+    logs = []
+
+    for log in list_of_logs:
+        with open(log) as f:
+            log_data = json.load(f)
+            flattened_log = flatten_dict(log_data)
+        logs.append(flattened_log)
+
+    # Convert backtest logs to dataframe with multiindex
+    df = pd.DataFrame(logs).transpose()
+    df.index = pd.MultiIndex.from_tuples([tuple(k.split('.')) if '.' in k else ('summary', k) for k,v in df.iterrows()])
+
+    df.to_excel(f'backtests\\{sheet_name}BacktestComparison.xlsx')
+
+    return df
 
 def get_last_days_of_month(exchange, start_date, end_date):
     '''Retrieve last day of month over specified period using market calendar.'''
@@ -123,3 +148,11 @@ def get_last_days_of_month(exchange, start_date, end_date):
     df['date'] = pd.to_datetime(df['market_open']).dt.date
     last_days_of_month = [date.isoformat() for date in df['date'].tolist()]
     return last_days_of_month
+
+if __name__ == '__main__':
+    dir_path = r'C:\Users\Evan\Desktop\projects\algo_trading\backtests'
+
+    json_logs = [f'{dir_path}\\{file}' for file in os.listdir(dir_path) if file.endswith('.json')]
+
+    df = compare_backtests(json_logs, 'SPYStrategy')
+    print(df)
