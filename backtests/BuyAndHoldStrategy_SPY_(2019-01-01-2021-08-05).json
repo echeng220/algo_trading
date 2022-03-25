@@ -1,0 +1,13 @@
+{
+    "strategy": "BuyAndHoldStrategy",
+    "instrument": "SPY",
+    "start_date": "2019-01-01",
+    "end_date": "2021-08-05",
+    "run_date": "2022-03-25",
+    "final_portfolio_value_$": 17976.87169251595,
+    "cumulative_returns_%": 79.76871692515948,
+    "sharpe_ratio": 0.9182429444420953,
+    "max_drawdown_%": 32.26323668939052,
+    "longest_drawdown_duration": "170 days, 0:00:00",
+    "total_trades": 0
+}

@@ -1,0 +1,32 @@
+{
+    "strategy": "SMA200Strategy",
+    "instrument": "SPY",
+    "start_date": "2019-01-01",
+    "end_date": "2021-08-05",
+    "run_date": "2022-03-25",
+    "final_portfolio_value_$": 14170.96613972098,
+    "cumulative_returns_%": 41.70966139720977,
+    "sharpe_ratio": 0.8053636195234106,
+    "max_drawdown_%": 12.012249055061217,
+    "longest_drawdown_duration": "187 days, 0:00:00",
+    "total_trades": 1,
+    "avg_profit_$": -161.26338908937396,
+    "profit_std_$": 0.0,
+    "max_profit_$": -161.26338908937396,
+    "min_profit_$": -161.26338908937396,
+    "avg_return_%": -1.719742270641556,
+    "return_std_%": 0.0,
+    "max_return_%": -1.719742270641556,
+    "min_return_%": -1.719742270641556,
+    "unprofitable_trades": {
+        "number_of_trades": 1,
+        "avg_profit_$": -161.26338908937396,
+        "profit_std_$": 0.0,
+        "max_profit_$": -161.26338908937396,
+        "min_profit_$": -161.26338908937396,
+        "avg_return_%": -1.719742270641556,
+        "return_std_%": 0.0,
+        "max_return_%": -1.719742270641556,
+        "min_return_%": -1.719742270641556
+    }
+}

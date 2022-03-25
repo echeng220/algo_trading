@@ -9,18 +9,26 @@ from pyalgotrade import plotter
 
 from import_data import get_ticker_data
 
-def create_feed(ticker, start_date, end_date):
-    '''Check for .csv data for given ticker and date range.
+MAJOR_EVENTS = {
+    'dot-com-bubble': {'start_date': '2000-01-01', 'end_date': '2003-01-01'},
+    'housing-crisis': {'start_date': '2006-01-01', 'end_date': '2010-01-01'},
+    'covid-19': {'start_date': '2019-01-01', 'end_date': '2021-08-05'},
+}
+
+def create_feed(tickers, start_date, end_date, interval='1d'):
+    '''Check for .csv data for given tickers and date range.
     Retrieve data from Yahoo Finance if not available.
     Add bars from .csv to feed.'''
     feed = yahoofeed.Feed()
-    try:
-        feed.addBarsFromCSV(ticker, f'data\\{ticker.upper()}_({start_date}-{end_date}).csv')
-        return feed
-    except FileNotFoundError:
-        get_ticker_data(ticker, start_date, end_date)
-        feed.addBarsFromCSV(ticker, f'data\\{ticker.upper()}_({start_date}-{end_date}).csv')
-        return feed
+
+    for ticker in tickers:
+        try:
+            feed.addBarsFromCSV(ticker, f'data\\{ticker.upper()}_({interval})_({start_date}-{end_date}).csv')
+        except FileNotFoundError:
+            get_ticker_data(ticker, start_date, end_date)
+            feed.addBarsFromCSV(ticker, f'data\\{ticker.upper()}_({interval})_({start_date}-{end_date}).csv')
+    
+    return feed
 
 def log_backtest(strategy, return_analyzer, sharpe_analyzer, drawdown_analyzer, trade_analyzer, start_date, end_date):
     '''Write results of backtest to .json file.'''

@@ -1,0 +1,13 @@
+{
+    "strategy": "VIX10Strategy",
+    "instrument": "SPY",
+    "start_date": "2019-01-01",
+    "end_date": "2021-08-05",
+    "run_date": "2022-03-25",
+    "final_portfolio_value_$": 11848.866058664807,
+    "cumulative_returns_%": 18.488660586648177,
+    "sharpe_ratio": 0.18121722413666327,
+    "max_drawdown_%": 24.529620556102195,
+    "longest_drawdown_duration": "301 days, 0:00:00",
+    "total_trades": 0
+}

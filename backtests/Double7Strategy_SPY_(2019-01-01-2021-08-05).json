@@ -1,0 +1,43 @@
+{
+    "strategy": "Double7Strategy",
+    "instrument": "SPY",
+    "start_date": "2019-01-01",
+    "end_date": "2021-08-05",
+    "run_date": "2022-03-25",
+    "final_portfolio_value_$": 11975.598351933784,
+    "cumulative_returns_%": 19.75598351933776,
+    "sharpe_ratio": 0.26106597674031407,
+    "max_drawdown_%": 9.054511690411102,
+    "longest_drawdown_duration": "346 days, 0:00:00",
+    "total_trades": 16,
+    "avg_profit_$": 123.47489699586144,
+    "profit_std_$": 237.54840460850173,
+    "max_profit_$": 415.3578690959054,
+    "min_profit_$": -561.2196588119805,
+    "avg_return_%": 1.165254869810979,
+    "return_std_%": 2.3357860067159466,
+    "max_return_%": 4.250822089721724,
+    "min_return_%": -5.619861312597254,
+    "profitable_trades": {
+        "number_of_trades": 14,
+        "avg_profit_$": 203.83024830122122,
+        "profit_std_$": 103.44657883518546,
+        "max_profit_$": 415.3578690959054,
+        "min_profit_$": 35.827659132263875,
+        "avg_return_%": 1.9564877090462975,
+        "return_std_%": 1.0024737480281405,
+        "max_return_%": 4.250822089721724,
+        "min_return_%": 0.30563552326180615
+    },
+    "unprofitable_trades": {
+        "number_of_trades": 2,
+        "avg_profit_$": -439.01256214165704,
+        "profit_std_$": 122.20709667032344,
+        "max_profit_$": -316.8054654713336,
+        "min_profit_$": -561.2196588119805,
+        "avg_return_%": -4.37337500483625,
+        "return_std_%": 1.2464863077610042,
+        "max_return_%": -3.126888697075245,
+        "min_return_%": -5.619861312597254
+    }
+}

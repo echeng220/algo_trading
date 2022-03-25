@@ -1,0 +1,43 @@
+{
+    "strategy": "RSI2Strategy",
+    "instrument": "SPY",
+    "start_date": "2019-01-01",
+    "end_date": "2021-08-05",
+    "run_date": "2022-03-25",
+    "final_portfolio_value_$": 11505.973797047984,
+    "cumulative_returns_%": 15.059737970479725,
+    "sharpe_ratio": 0.10222544245982838,
+    "max_drawdown_%": 7.808490272828668,
+    "longest_drawdown_duration": "239 days, 0:00:00",
+    "total_trades": 14,
+    "avg_profit_$": 107.56955693199873,
+    "profit_std_$": 163.92495046205124,
+    "max_profit_$": 382.6360360358158,
+    "min_profit_$": -404.42302886228805,
+    "avg_return_%": 1.162488231917378,
+    "return_std_%": 1.806668054521168,
+    "max_return_%": 4.267218006522018,
+    "min_return_%": -4.4576573198968354,
+    "profitable_trades": {
+        "number_of_trades": 13,
+        "avg_profit_$": 146.95360199309772,
+        "profit_std_$": 84.98810070447975,
+        "max_profit_$": 382.6360360358158,
+        "min_profit_$": 54.33389632964088,
+        "avg_return_%": 1.5948071205184715,
+        "return_std_%": 0.9479111175011016,
+        "max_return_%": 4.267218006522018,
+        "min_return_%": 0.5968192811841926
+    },
+    "unprofitable_trades": {
+        "number_of_trades": 1,
+        "avg_profit_$": -404.42302886228805,
+        "profit_std_$": 0.0,
+        "max_profit_$": -404.42302886228805,
+        "min_profit_$": -404.42302886228805,
+        "avg_return_%": -4.4576573198968354,
+        "return_std_%": 0.0,
+        "max_return_%": -4.4576573198968354,
+        "min_return_%": -4.4576573198968354
+    }
+}
