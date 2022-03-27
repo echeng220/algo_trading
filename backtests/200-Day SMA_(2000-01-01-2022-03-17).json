@@ -1,5 +1,5 @@
 {
-    "strategy": "TestStrategy",
+    "strategy": "200-Day SMA",
     "start_date": "2000-01-01",
     "end_date": "2022-03-17",
     "run_date": "2022-03-26",
