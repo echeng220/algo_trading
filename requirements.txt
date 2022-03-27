@@ -3,3 +3,5 @@ pyalgotrade==0.20
 pandas==1.2.3
 pandas-market-calendars==3.4
 ib-insync==0.9.70
+backtrader==1.9.76.123
+matplotlib==3.2.2

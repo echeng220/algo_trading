@@ -4,8 +4,9 @@ from datetime import datetime
 import pandas as pd
 import pandas_market_calendars as market_calendar
 
+import backtrader as bt
+
 from pyalgotrade.barfeed import yahoofeed
-from pyalgotrade import plotter
 
 from import_data import get_ticker_data
 
@@ -29,6 +30,51 @@ def create_feed(tickers, start_date, end_date, interval='1d'):
             feed.addBarsFromCSV(ticker, f'data\\{ticker.upper()}_({interval})_({start_date}-{end_date}).csv')
     
     return feed
+
+def bt_create_feed(cerebro, tickers, start_date, end_date, interval='1d'):
+    '''Check for .csv data for given tickers and date range.
+    Retrieve data from Yahoo Finance if not available.
+    Add bars from .csv to feed.'''
+
+    for ticker in tickers:
+        data_path = f'data\\{ticker.upper()}_({interval})_({start_date}-{end_date}).csv'
+
+        if not os.path.exists(data_path):
+            get_ticker_data(ticker, start_date, end_date)
+            
+        data = bt.feeds.YahooFinanceCSVData(dataname=data_path)
+        cerebro.adddata(data, name=ticker)
+
+    return
+
+def bt_log_backtest(test_results, start_date, end_date):
+    strategy_name = test_results[0].params.name
+    test_date = datetime.today().strftime('%Y-%m-%d')
+
+    starting_balance = test_results[0].params.starting_balance
+    final_portfolio_value = test_results[0].broker.getvalue()
+    cum_return = (final_portfolio_value - starting_balance) / starting_balance * 100
+
+    log_dict = {
+            'strategy': strategy_name,
+            'start_date': start_date,
+            'end_date': end_date,
+            'run_date': test_date,
+            'final_portfolio_value_$': final_portfolio_value,
+            'cumulative_returns_%': cum_return
+    }
+    
+    log_dict.update({'returns': test_results[0].analyzers.returns.get_analysis()})
+    log_dict.update({'sharpe': test_results[0].analyzers.sharpe.get_analysis()})
+    log_dict.update({'drawdown': test_results[0].analyzers.drawdown.get_analysis()})
+    log_dict.update({'trades': test_results[0].analyzers.trades.get_analysis()})
+    transactions_dict = {
+        datetime.strftime(k, '%Y-%m-%d'): v \
+            for k,v in test_results[0].analyzers.transactions.get_analysis().items()}
+    log_dict.update({'transactions': transactions_dict})
+
+    with open(f'backtests\\{strategy_name}_({start_date}-{end_date}).json', 'w') as f:
+        json.dump(log_dict, f, indent=4)
 
 def log_backtest(strategy, return_analyzer, sharpe_analyzer, drawdown_analyzer, trade_analyzer, start_date, end_date):
     '''Write results of backtest to .json file.'''
