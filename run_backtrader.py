@@ -40,4 +40,4 @@ if __name__ == '__main__':
     start_date = '2000-01-01'
     end_date =  '2022-03-17'
 
-    orchestrate_test(SMA200Strategy, tickers, start_date, end_date)
+    orchestrate_test(Double7Strategy, tickers, start_date, end_date)
