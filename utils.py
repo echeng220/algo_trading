@@ -187,7 +187,6 @@ def compare_backtests(list_of_logs, sheet_name):
 
     # Convert backtest logs to dataframe with multiindex
     df = pd.DataFrame(logs).transpose()
-    # df.index = pd.MultiIndex.from_tuples([tuple(k.split('.')) if '.' in k else ('summary', k) for k,v in df.iterrows()])
 
     df.to_excel(f'backtests\\{sheet_name}BacktestComparison.xlsx')
 

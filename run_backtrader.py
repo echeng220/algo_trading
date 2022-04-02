@@ -37,7 +37,7 @@ def orchestrate_test(strategy, tickers, start_date, end_date, cash=10000.0, comm
 
 if __name__ == '__main__':
     tickers = ['SPY']
-    start_date = '2000-01-01'
+    start_date = '2001-01-01'
     end_date =  '2022-03-31'
 
     orchestrate_test(SMA200Strategy, tickers, start_date, end_date)
